@@ -3,6 +3,15 @@
 namespace Ical.Net.NaturalLanguage;
 
 internal class RecurVisitor : RecurBaseVisitor<RecurrencePattern> {
+    private readonly List<WeekDay> _weekDays = [];
+
+    public RecurVisitor(DayOfWeek firstDayOfWeek) {
+        for (var i = 0; i < 5; i++) {
+            var day = (DayOfWeek)(((int)firstDayOfWeek + i) % 7);
+            _weekDays.Add(new(day));
+        }
+    }
+
     private static readonly string[] DayNames = [
         "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday",
     ];
@@ -111,7 +120,7 @@ internal class RecurVisitor : RecurBaseVisitor<RecurrencePattern> {
 
         var w = new WeekDay(dow, ordinal);
 
-        rp.ByDay = new List<WeekDay> { w };
+        rp.ByDay = [w];
 
         return rp;
     }
@@ -127,7 +136,7 @@ internal class RecurVisitor : RecurBaseVisitor<RecurrencePattern> {
         
         var w = new WeekDay(dow, ordinal);
 
-        rp.ByDay = new List<WeekDay> { w };
+        rp.ByDay = [w];
 
         return rp;
     }
@@ -141,7 +150,7 @@ internal class RecurVisitor : RecurBaseVisitor<RecurrencePattern> {
 
         var w = new WeekDay(dow);
 
-        rp.ByDay = new List<WeekDay> { w };
+        rp.ByDay = [w];
 
         return rp;
     }
@@ -180,7 +189,7 @@ internal class RecurVisitor : RecurBaseVisitor<RecurrencePattern> {
         var rp = new RecurrencePattern {
             Frequency = FrequencyType.Weekly,
             Interval = ordinal,
-            ByDay = new List<WeekDay> { new(dow) },
+            ByDay = [new(dow)],
         };
 
         return rp;
@@ -199,7 +208,7 @@ internal class RecurVisitor : RecurBaseVisitor<RecurrencePattern> {
         var rp = new RecurrencePattern {
             Frequency = FrequencyType.Yearly,
             Interval = ordinal,
-            ByMonth = new List<int> { month },
+            ByMonth = [month],
         };
 
         return rp;
@@ -264,13 +273,7 @@ internal class RecurVisitor : RecurBaseVisitor<RecurrencePattern> {
         else if (context.WEEKDAY() is not null) {
             rp = new() {
                 Frequency = FrequencyType.Weekly,
-                ByDay = {
-                    new(DayOfWeek.Sunday),
-                    new(DayOfWeek.Monday),
-                    new(DayOfWeek.Tuesday),
-                    new(DayOfWeek.Wednesday),
-                    new(DayOfWeek.Thursday),
-                },
+                ByDay = _weekDays,
             };
         }
         else {

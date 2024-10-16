@@ -3,15 +3,15 @@ using Ical.Net.DataTypes;
 
 namespace Ical.Net.NaturalLanguage;
 
-public class AntlrParser {
-    public RecurrencePattern? Parse(string rawExpression) {
+public class NlParser {
+    public RecurrencePattern? Parse(string rawExpression, DayOfWeek firstDayOfWeek = DayOfWeek.Sunday) {
         var stream = CharStreams.fromString(rawExpression.ToLower());
         var lexer = new RecurLexer(stream);
         var tokenStream = new CommonTokenStream(lexer);
         var parser = new RecurParser(tokenStream);
 
         var context = parser.file();
-        var visitor = new RecurVisitor();
+        var visitor = new RecurVisitor(firstDayOfWeek);
 
         var rc = visitor.Visit(context);
         if (parser.NumberOfSyntaxErrors > 0) {
@@ -19,10 +19,5 @@ public class AntlrParser {
         }
 
         return rc;
-    }
-
-    public static RecurrencePattern? ParseText(string s, Culture? culture = null) {
-        var p = new AntlrParser();
-        return p.Parse(s);
     }
 }

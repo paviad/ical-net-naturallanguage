@@ -12,7 +12,7 @@ public class ToText {
 
     public ToText(RecurrencePattern recurrencePattern, Func<DateTime, string>? dateFormatter = null,
         Culture? culture = null) {
-        culture ??= Culture.English;
+        culture ??= Culture.Generic;
         _culture = culture;
 
         _recurrencePattern = recurrencePattern;

@@ -3,7 +3,7 @@
 namespace Ical.Net.NaturalLanguage;
 
 public class Culture {
-    public static readonly Culture English = new() {
+    public static readonly Culture Generic = new() {
         DayNames = new() {
             [DayOfWeek.Sunday] = "Sunday",
             [DayOfWeek.Monday] = "Monday",
@@ -14,11 +14,11 @@ public class Culture {
             [DayOfWeek.Saturday] = "Saturday",
         },
         WeekDays = new() {
+            DayOfWeek.Sunday,
             DayOfWeek.Monday,
             DayOfWeek.Tuesday,
             DayOfWeek.Wednesday,
             DayOfWeek.Thursday,
-            DayOfWeek.Friday,
         },
         MonthNames = new() {
             "January",

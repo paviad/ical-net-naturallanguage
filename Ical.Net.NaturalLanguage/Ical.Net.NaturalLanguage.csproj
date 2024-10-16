@@ -8,8 +8,9 @@
     <Title>Ical.Net.NaturalLanguage</Title>
     <Authors>Aviad Pineles</Authors>
     <Description>A companion library to Ical.Net that adds natural language support.</Description>
-    <PackageProjectUrl>https://github.com/rianjs/ical.net</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/paviad/ical-net-naturallanguage</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/paviad/ical-net-naturallanguage</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Recur.g4" />
